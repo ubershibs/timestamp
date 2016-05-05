@@ -1,11 +1,11 @@
 var express = require('express')
 var moment = require('moment')
 var fs = require('fs')
-var path =
+var path = require('path')
 
 var app = express()
 
-port = porcess.env.PORT || 8000;
+port = process.env.PORT || 8000;
 
 app.get('/:url', function(req, res) {
   var input = req.params.url;
