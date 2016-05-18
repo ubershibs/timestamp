@@ -1,4 +1,4 @@
-var express = require('express')
+  var express = require('express')
 var moment = require('moment')
 var fs = require('fs')
 var path = require('path')
@@ -8,19 +8,25 @@ var app = express()
 port = process.env.PORT || 8000;
 
 app.get('/:url', function(req, res) {
+  var parsed;
   var input = req.params.url;
-
-  if(/^\d{8}$/.test(input)) {
-    var parsed = moment(input, "X")
+  console.log("Input: " + input)
+  if(/^\d{10}$/.test(input)) {
+    console.log("We have a Unix date");
+    parsed = moment(input, "X")
   } else {
-    var parsed = moment(input, "MMMM D, YYYY")
+    console.log("We have a natural date");
+    parsed = moment(input, "MMMM D, YYYY")
   }
   if(parsed.isValid()) {
+    console.log("Parsed as valid");
+    console.log("Unix: " + parsed.format("X") + " Natural: " + parsed.format("MMMM D, YYYY"));
     res.json({
       unix: parsed.format("X"),
       natural: parsed.format("MMMM D, YYYY")
     });
   } else {
+    console.log("responding with nulls");
     res.json({
       unix: null,
       natural: null
